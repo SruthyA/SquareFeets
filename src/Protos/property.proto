@@ -9,7 +9,7 @@ option java_outer_classname = "PropertyProto";
 import "google/protobuf/timestamp.proto";
 
 // --------------------------
-// Main Property Message
+// Main Property Message New
 // --------------------------
 message Property {
     string name = 1;
