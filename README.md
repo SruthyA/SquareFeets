@@ -1,2 +1,2 @@
 # SquareFeets
-Rent/Buy your dream home
+Rent/Buy your dream home 
