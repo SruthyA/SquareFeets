@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package com.squarefeets;
+
+// Current Address schema
+message CurrentAddress {
+  string address_id = 1;
+  string country = 2;
+  string state = 3;
+  string city = 4;
+  string pincode = 5;
+  string postoffice = 6;
+  string phone_number = 7;
+}

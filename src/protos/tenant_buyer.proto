@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package com.squarefeets;
+
+import "native_address.proto";
+import "current_address.proto";
+import "id_proof.proto";
+import "corporate_buyer.proto";
+
+// Enum to distinguish between Tenants and Buyers
+enum TenantOrBuyer {
+  TENANT_OR_BUYER_UNSPECIFIED = 0;
+  TENANT = 1;
+  BUYER = 2;
+}
+
+// Enum for tenancy status with default as applicant
+enum TenancyStatus {
+  TENANCY_STATUS_UNSPECIFIED = 0;
+  APPLICANT = 1;  // Default value
+  ACTIVE = 2;
+  PAST = 3;
+}
+
+// Main tenant/buyer entity
+message TenantBuyer {
+  string tenant_buyer_id = 1;
+  string first_name = 2;
+  string last_name = 3;
+  TenantOrBuyer is_tenant_or_buyer = 4;
+  TenancyStatus tenancy_status = 5;  // Default will be APPLICANT
+  string email_id = 6;
+  string secondary_phone_number = 7;
+  bool is_married = 8;
+  string spouse_name = 9;
+  string fathers_name = 10;
+  string mothers_name = 11;
+  bool is_corporate_buyer = 12;
+  string current_rent_enddate = 14;  // Consider using google.protobuf.Timestamp for proper date handling
+  string current_rental_agreement_note = 15;  // Long text field
+  // References to address schemas
+  NativeAddress native_address = 17;
+  CurrentAddress current_address = 18;
+  // References to ID proofs (can have multiple)
+  repeated IdProof id_proofs = 19;
+  // Corporate buyer details (optional)
+  CorporateBuyer corporate_buyer_details = 20;
+}

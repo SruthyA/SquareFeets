@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package com.squarefeets;
+
+// Enum for different types of ID proofs
+enum IdProofType {
+  ID_PROOF_TYPE_UNSPECIFIED = 0;
+  PASSPORT = 1;
+  AADHAAR = 2;
+  VOTERS_ID = 3;
+  PANCARD = 4;
+  COUNTRY_PR = 5;
+}
+
+// Generic ID Proof schema to handle all types of identity documents
+message IdProof {
+  string id_proof_id = 1;
+  IdProofType proof_type = 2;
+  string document_number = 3;  // passport number, aadhaar number, etc.
+  string issued_country = 4;
+  string date_of_expiry = 5;  // Consider using google.protobuf.Timestamp for proper date handling
+  string note = 6;  // Additional notes about the ID proof
+}

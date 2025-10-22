@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package com.squarefeets;
+
+import "google/protobuf/timestamp.proto";
+
+// Rent payment frequency
+enum PaymentFrequency {
+  PAYMENT_FREQUENCY_UNSPECIFIED = 0;
+  MONTHLY = 1;
+  QUARTERLY = 2;
+  SEMI_ANNUALLY = 3;
+  ANNUALLY = 4;
+}
+
+// Rent payment status
+enum PaymentStatus {
+  PAYMENT_STATUS_UNSPECIFIED = 0;
+  PENDING = 1;
+  PAID = 2;
+  OVERDUE = 3;
+  PARTIALLY_PAID = 4;
+  REFUNDED = 5;
+}
+
+// Rent agreement status
+enum AgreementStatus {
+  AGREEMENT_STATUS_UNSPECIFIED = 0;
+  DRAFT = 1;
+  ACTIVE = 2;
+  EXPIRED = 3;
+  TERMINATED = 4;
+  RENEWED = 5;
+}
+
+// Main rent agreement schema
+message RentAgreement {
+  string rent_agreement_id = 1;
+  string property_id = 2;  // Links to your property schema
+  string tenant_buyer_id = 3;  // Links to TenantBuyer
+  double monthly_rent_amount = 4;
+  double security_deposit = 5;
+  PaymentFrequency payment_frequency = 6;
+  google.protobuf.Timestamp lease_start_date = 7;
+  google.protobuf.Timestamp lease_end_date = 8;
+  string agreement_document_url = 9;
+  AgreementStatus status = 10;
+  double maintenance_charges = 11;
+  bool utilities_included = 12;
+  double late_fee_percentage = 13;
+  int32 grace_period_days = 14;
+  string terms_and_conditions = 15;
+  google.protobuf.Timestamp created_at = 16;
+  google.protobuf.Timestamp updated_at = 17;
+  string notes = 18;
+}

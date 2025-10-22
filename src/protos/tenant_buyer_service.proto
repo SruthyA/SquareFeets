@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package com.squarefeets;
+
+import "tenant_buyer.proto";
+import "google/protobuf/empty.proto";
+
+// Service definitions for tenant/buyer operations
+service TenantBuyerService {
+  // Create a new tenant or buyer
+  rpc CreateTenantBuyer(CreateTenantBuyerRequest) returns (TenantBuyer);
+  
+  // Get tenant/buyer by ID
+  rpc GetTenantBuyer(GetTenantBuyerRequest) returns (TenantBuyer);
+  
+  // Update existing tenant/buyer
+  rpc UpdateTenantBuyer(UpdateTenantBuyerRequest) returns (TenantBuyer);
+  
+  // Delete tenant/buyer
+  rpc DeleteTenantBuyer(DeleteTenantBuyerRequest) returns (google.protobuf.Empty);
+  
+  // List all tenants/buyers with optional filtering
+  rpc ListTenantBuyers(ListTenantBuyersRequest) returns (ListTenantBuyersResponse);
+  
+  // Search tenants/buyers
+  rpc SearchTenantBuyers(SearchTenantBuyersRequest) returns (SearchTenantBuyersResponse);
+}
+
+// Request messages
+message CreateTenantBuyerRequest {
+  TenantBuyer tenant_buyer = 1;
+}
+
+message GetTenantBuyerRequest {
+  string tenant_buyer_id = 1;
+}
+
+message UpdateTenantBuyerRequest {
+  TenantBuyer tenant_buyer = 1;
+}
+
+message DeleteTenantBuyerRequest {
+  string tenant_buyer_id = 1;
+}
+
+message ListTenantBuyersRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+  TenantOrBuyer filter_type = 3;  // Optional filter by tenant or buyer
+  TenancyStatus filter_status = 4;  // Optional filter by status
+}
+
+message ListTenantBuyersResponse {
+  repeated TenantBuyer tenant_buyers = 1;
+  string next_page_token = 2;
+  int32 total_count = 3;
+}
+
+message SearchTenantBuyersRequest {
+  string query = 1;  // Search query
+  int32 page_size = 2;
+  string page_token = 3;
+}
+
+message SearchTenantBuyersResponse {
+  repeated TenantBuyer tenant_buyers = 1;
+  string next_page_token = 2;
+  int32 total_count = 3;
+}

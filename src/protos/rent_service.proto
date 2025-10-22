@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package com.squarefeets;
+
+import "rent_agreement.proto";
+import "rent_payment.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+// Service definitions for rent management operations
+service RentService {
+  // Rent Agreement operations
+  rpc CreateRentAgreement(CreateRentAgreementRequest) returns (RentAgreement);
+  rpc GetRentAgreement(GetRentAgreementRequest) returns (RentAgreement);
+  rpc UpdateRentAgreement(UpdateRentAgreementRequest) returns (RentAgreement);
+  rpc DeleteRentAgreement(DeleteRentAgreementRequest) returns (google.protobuf.Empty);
+  rpc ListRentAgreements(ListRentAgreementsRequest) returns (ListRentAgreementsResponse);
+  
+  // Rent Payment operations
+  rpc RecordPayment(RecordPaymentRequest) returns (RentPayment);
+  rpc GetPayment(GetPaymentRequest) returns (RentPayment);
+  rpc UpdatePayment(UpdatePaymentRequest) returns (RentPayment);
+  rpc GetPaymentHistory(GetPaymentHistoryRequest) returns (PaymentHistoryResponse);
+  rpc GetOverduePayments(GetOverduePaymentsRequest) returns (OverduePaymentsResponse);
+  
+  // Utility operations
+  rpc GenerateRentSchedule(GenerateRentScheduleRequest) returns (GenerateRentScheduleResponse);
+  rpc GetRentSummary(GetRentSummaryRequest) returns (RentSummaryResponse);
+}
+
+// Request/Response messages for Rent Agreements
+message CreateRentAgreementRequest {
+  RentAgreement rent_agreement = 1;
+}
+
+message GetRentAgreementRequest {
+  string rent_agreement_id = 1;
+}
+
+message UpdateRentAgreementRequest {
+  RentAgreement rent_agreement = 1;
+}
+
+message DeleteRentAgreementRequest {
+  string rent_agreement_id = 1;
+}
+
+message ListRentAgreementsRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+  string property_id = 3;  // Optional filter
+  string tenant_buyer_id = 4;  // Optional filter
+  AgreementStatus status = 5;  // Optional filter
+}
+
+message ListRentAgreementsResponse {
+  repeated RentAgreement rent_agreements = 1;
+  string next_page_token = 2;
+  int32 total_count = 3;
+}
+
+// Request/Response messages for Payments
+message RecordPaymentRequest {
+  RentPayment payment = 1;
+}
+
+message GetPaymentRequest {
+  string payment_id = 1;
+}
+
+message UpdatePaymentRequest {
+  RentPayment payment = 1;
+}
+
+message GetPaymentHistoryRequest {
+  string rent_agreement_id = 1;
+  google.protobuf.Timestamp start_date = 2;
+  google.protobuf.Timestamp end_date = 3;
+  int32 page_size = 4;
+  string page_token = 5;
+}
+
+message PaymentHistoryResponse {
+  repeated RentPayment payments = 1;
+  string next_page_token = 2;
+  int32 total_count = 3;
+  double total_amount_paid = 4;
+  double total_amount_due = 5;
+}
+
+message GetOverduePaymentsRequest {
+  string tenant_buyer_id = 1;  // Optional filter
+  string property_id = 2;  // Optional filter
+  int32 page_size = 3;
+  string page_token = 4;
+}
+
+message OverduePaymentsResponse {
+  repeated RentPayment overdue_payments = 1;
+  string next_page_token = 2;
+  int32 total_count = 3;
+  double total_overdue_amount = 4;
+}
+
+// Utility operations
+message GenerateRentScheduleRequest {
+  string rent_agreement_id = 1;
+}
+
+message GenerateRentScheduleResponse {
+  repeated RentPayment scheduled_payments = 1;
+}
+
+message GetRentSummaryRequest {
+  string rent_agreement_id = 1;
+  google.protobuf.Timestamp start_date = 2;
+  google.protobuf.Timestamp end_date = 3;
+}
+
+message RentSummaryResponse {
+  string rent_agreement_id = 1;
+  double total_rent_collected = 2;
+  double total_rent_due = 3;
+  double total_overdue_amount = 4;
+  int32 payments_made = 5;
+  int32 payments_pending = 6;
+  int32 payments_overdue = 7;
+}

@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package com.squarefeets;
+
+import "google/protobuf/timestamp.proto";
+
+// Payment method enum
+enum PaymentMethod {
+  PAYMENT_METHOD_UNSPECIFIED = 0;
+  CASH = 1;
+  BANK_TRANSFER = 2;
+  CHEQUE = 3;
+  CREDIT_CARD = 4;
+  DEBIT_CARD = 5;
+  UPI = 6;
+  NET_BANKING = 7;
+  WALLET = 8;
+}
+
+// Rent payment status
+enum PaymentStatus {
+  PAYMENT_STATUS_UNSPECIFIED = 0;
+  PENDING = 1;
+  PAID = 2;
+  OVERDUE = 3;
+  PARTIALLY_PAID = 4;
+  REFUNDED = 5;
+  CANCELLED = 6;
+}
+
+// Individual rent payment record
+message RentPayment {
+  string payment_id = 1;
+  string rent_agreement_id = 2;
+  double amount_due = 3;
+  double amount_paid = 4;
+  double late_fee_amount = 5;
+  google.protobuf.Timestamp due_date = 6;
+  google.protobuf.Timestamp payment_date = 7;
+  PaymentStatus status = 8;
+  PaymentMethod payment_method = 9;
+  string transaction_reference = 10;
+  string receipt_number = 11;
+  string bank_details = 12;  // For bank transfers
+  google.protobuf.Timestamp created_at = 13;
+  google.protobuf.Timestamp updated_at = 14;
+  string notes = 15;
+}

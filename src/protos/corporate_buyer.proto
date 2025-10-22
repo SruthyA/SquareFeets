@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package com.squarefeets;
+
+// Corporate Buyer details schema
+message CorporateBuyer {
+  string corporate_buyer_id = 1;
+  string organization_name = 2;
+  string gst_number = 3;
+  string corporate_contact_person = 4;
+  string corporate_email = 5;
+  string corporate_phone = 6;
+  string registration_number = 7;
+  string incorporation_date = 8;  // Consider using google.protobuf.Timestamp for proper date handling
+  string business_type = 9;
+  string notes = 10;
+}
