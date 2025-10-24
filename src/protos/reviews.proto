@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package realestate;
+package com.squarefeets;
 
 // Represents a review and rating for a property
 message Review {

@@ -1,43 +1,42 @@
-Message Amenity {
-String AmenityUUid
-String Name
-String Description
-Repeated AmenityTag Tags
-AmenityCategory  amenityCategory // e.g., Furniture, Appliance, Fixture
-AmenityArea  amenityArea // e.g., Bedroom, Bathroom, Living Room
-Boolean  IsComplementary
-Repeated AmenityDetails  details
-String ImageUrls
-String IconUrl
+syntax = "proto3";
+
+message Amenity {
+  string amenity_uuid = 1;
+  string name = 2;
+  string description = 3;
+  repeated AmenityTag tags = 4;
+  AmenityCategory amenity_category = 5; // e.g., Furniture, Appliance, Fixture
+  AmenityArea amenity_area = 6; // e.g., Bedroom, Bathroom, Living Room
+  bool is_complementary = 7;
+  repeated AmenityDetails details = 8;
+  string image_urls = 9;
+  string icon_url = 10;
 }
 
-
-
-Message AmenityDetails {
-DetailType  detailType
-String TypeName
-String Value
+message AmenityDetails {
+  DetailType detail_type = 1;
+  string type_name = 2;
+  string value = 3;
 }
 
-
-Enum AmenityTag {
-"Luxury"
-"Eco-Friendly"
-"Pet-Friendly"
-"Modern"
-"Essential"
-"Family-Friendly"
-"Smart-Home"
-"Energy-Efficient"
-"Outdoor"
-"Indoor"
+enum AmenityTag {
+  LUXURY = 0;
+  ECO_FRIENDLY = 1;
+  PET_FRIENDLY = 2;
+  MODERN = 3;
+  ESSENTIAL = 4;
+  FAMILY_FRIENDLY = 5;
+  SMART_HOME = 6;
+  ENERGY_EFFICIENT = 7;
+  OUTDOOR = 8;
+  INDOOR = 9;
 }
 
-Enum DetailType {
-Int,
-Float
-String
-Timestamp
+enum DetailType {
+  INT = 0;
+  FLOAT = 1;
+  STRING = 2;
+  TIMESTAMP = 3;
 }
 
 enum AmenityArea {
