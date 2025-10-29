@@ -1,0 +1,31 @@
+syntax="proto3";
+
+package com.squarefeets.user;
+
+message User {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  int64 phone = 4;
+  Role role = 5;
+
+
+  enum Role{
+    USER_ROLE_UNSPECIFIED = 0;
+    USER_ROLE_OWNER = 1;
+    USER_ROLE_BUYER = 2;
+    USER_ROLE_ADMIN = 3;
+  }
+
+}
+message UserRegistrationRequest{
+  User user = 1;
+}
+
+message UserRegistrationResponse{
+  string message = 1;
+}
+
+service UserService{
+  rpc registerUser(UserRegistrationRequest) returns (UserRegistrationResponse) ;
+}
